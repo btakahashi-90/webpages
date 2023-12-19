@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <style>
+               #page{
+                    width: 100%;
+                    padding: 0;
+                    margin: 0;
+               }
+               #content_wrapper{
+                    width: 1400px;
+                    max-width: 100vw;
+                    margin: 0 auto;
+                    padding-top: 2rem;
+               }
+               #dropdowns_wrapper{
+                    display: grid;
+                    grid-template-columns: 1fr 2fr;
+                    grid-gap: 1rem;
+                    align-items: center;
+               }
+               #secondary_dropdowns_wrapper > div{
+                    grid-template-columns: 1fr 1fr;
+                    grid-gap: 1rem;
+                    align-items: center;
+               }
+          </style>
+     </head>
+     <body>
+
+          <div id="page">
+               <div id="content_wrapper">
+                    <div id="dropdowns_wrapper">
+                         <div>
+                              Main Dropdown:
+                              <select id="main_dropdown">
+                                   <option value="first_dropdown_wrapper">First</option>
+                                   <option value="second_dropdown_wrapper">Second</option>
+                                   <option value="third_dropdown_wrapper">Third</option>
+                                   <option value="fourth_dropdown_wrapper">Fourth</option>
+                              </select>
+                         </div>
+                         <div id="secondary_dropdowns_wrapper">
+                              <div id="first_dropdown_wrapper">
+                                   <div>
+                                        First secondary Dropdown:
+                                        <select id="first_dropdown_s">
+                                             <option value="first">First_1</option>
+                                             <option value="second">Second_1</option>
+                                             <option value="third">Third_1</option>
+                                             <option value="fourth">Fourth_1</option>
+                                        </select>
+                                   </div>
+                                   <div id="first_dropdown_dynamic" class="contains_button">
+                                        <div name="first" data-search="1%2B1">
+                                             <p>You've selected the first option in the second dropdown. The button will Google Search 1+1</p>
+                                        </div>
+                                        <div name="second" data-search="1%2B2">
+                                             <p>You've selected the second option in the second dropdown. The button will Google Search 1+2</p>
+                                        </div>
+                                        <div name="third" data-search="1%2B3">
+                                             <p>You've selected the third option in the second dropdown. The button will Google Search 1+3</p>
+                                        </div>
+                                        <div name="fourth" data-search="1%2B4">
+                                             <p>You've selected the fourth option in the second dropdown. The button will Google Search 1+4</p>
+                                        </div>
+                                        <button id="first_button" type="button" onclick="">Google Stuff
+                                   </div>
+                              </div>
+                              <div id="second_dropdown_wrapper" style="display: none">
+                                   <div>
+                                        Second secondary Dropdown:
+                                        <select id="second_dropdown_s">
+                                             <option value="first">First_2</option>
+                                             <option value="second">Second_2</option>
+                                             <option value="third">Third_2</option>
+                                        </select>
+                                   </div>
+                                   <div id="second_dropdown_dynamic" class="contains_button">
+                                        <div name="first" data-search="2%2B1">
+                                             <p>You've selected the first option in the second dropdown. The button will Google Search 2+1</p>
+                                        </div>
+                                        <div name="second" data-search="2%2B2">
+                                             <p>You've selected the second option in the second dropdown. The button will Google Search 2+2</p>
+                                        </div>
+                                        <div name="third" data-search="2%2B3">
+                                             <p>You've selected the third option in the second dropdown. The button will Google Search 2+3</p>
+                                        </div>
+                                        <button id="second_button" type="button" onclick="">Google Stuff
+                                   </div>
+                              </div>
+                              <div id="third_dropdown_wrapper" style="display: none">
+                                   <div>
+                                        Third secondary Dropdown:
+                                        <select id="third_dropdown_s">
+                                             <option value="first">First_3</option>
+                                        </select>
+                                   </div>
+                                   <div id="third_dropdown_dynamic">
+                                        <div name="first">
+                                             <p>You find yourself at a dead end. Please select a different option for the Main Dropdown.</p>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div id="fourth_dropdown_wrapper" style="display: none">
+                                   <div>
+                                        Fourth secondary Dropdown:
+                                        <select id="fourth_dropdown_s">
+                                             <option value="first">First_4</option>
+                                             <option value="second">Second_4</option>
+                                             <option value="third">Third_4</option>
+                                             <option value="fourth">Fourth_4</option>
+                                             <option value="fifth">Fifth_4</option>
+                                        </select>
+                                   </div>
+                                   <div id="fourth_dropdown_dynamic" class="contains_button">
+                                        <p>Unfortunately the search is not very dynamic. However, this is because the current system is on a local environment. In a live environment, setting the "data" of the named div could and should be something like '/url', which will then change the page to 'basesite/url'. Or at least it should. External linking will have to be handled separately, could just add a class check to accomplish this task.</p>
+                                        <div name="first" data-search="bats">
+                                             <p>You've selected the first option in the second dropdown. The button will Google Search "bats"</p>
+                                        </div>
+                                        <div name="second" data-search="cats">
+                                             <p>You've selected the second option in the second dropdown. The button will Google Search "cats"</p>
+                                        </div>
+                                        <div name="third" data-search="dogs">
+                                             <p>You've selected the third option in the second dropdown. The button will Google Search "dogs"</p>
+                                        </div>
+                                        <div name="fourth" data-search="hats">
+                                             <p>You've selected the fourth option in the second dropdown. The button will Google Search "hats"</p>
+                                        </div>
+                                        <div name="fifth" data-search="mice">
+                                             <p>You've selected the fifth option in the second dropdown. The button will Google Search "mice"</p>
+                                        </div>
+                                        <button id="first_button" type="button" onclick="">Google Other Stuff
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <br><br>
+                    <div id="dynamic_content">This content should change when the main dropdown or secondary dropdown is changed.</div>
+               </div>
+          </div>
+
+          <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+          <script>
+          /* NOTE: The JS Contained in the document is "skeleton code". There is a sever lack of use of variables and this code should NOT be used in a live environment. */
+          /* Another attempt at "dynamic drodowns" using show/hide. Problem: requires a lot of html... */
+               $("#main_dropdown").on("change", function(){
+                    // hide all secondary dropdowns
+                    $("[id$='dropdown_wrapper']").each(function(){
+                         $(this).css("display", "none");
+                    })
+                    // find and unhide the "selected" dropdown
+                    $("#" + $("#main_dropdown").val()).css("display", "grid");
+                    // force trigger a change to the newly selected dropdown to show/hide secondary dropdown content
+                    $("#" + $("#main_dropdown").val()).find("select").change();
+               })
+               $("[id$='dropdown_s']").on("change", function(){
+                    // update dynamic content area
+                    $("#dynamic_content").text("Main dropdown set to " + $("#main_dropdown option:selected").text() + " with Secondary set to " + $(this).find("option:selected").text());
+                    // update "embedded dynamic content"
+                    // hide all dynamic content DIVs.
+                    $(this).closest("[id$='dropdown_wrapper']").find("[id$='dropdown_dynamic']").children("div").each(function(){
+                         $(this).css("display", "none");
+                    })
+                    // find and show the selected dynamic content
+                    $(this).closest("[id$='dropdown_wrapper']").find("[id$='dropdown_dynamic']").children("div[name=" + $(this).val() + "]").css("display", "block");
+                    // update button if needed
+                    if($(this).closest("[id$='dropdown_wrapper']").find("[id$='dropdown_dynamic']").hasClass("contains_button")){
+                         /* The url is "dynamically" built here because this is for local testing. In "live" the onclick attr should be set to only .data("url") <- or whatever name the data is given. -> "window.open('index.html', '_blank')" */
+                         $(this).closest("[id$='dropdown_wrapper']").find("[id$='dropdown_dynamic']").children("button").attr("onclick", "window.open('https://google.com/search?q=" + $(this).closest("[id$='dropdown_wrapper']").find("[id$='dropdown_dynamic']").children("div[name=" + $(this).val() + "]").data("search") + "', '_blank')");
+                    }
+               })
+               $("document").ready(function(){
+                    // fire a change to the main dropdown to "preload" dynamic content
+                    $("#main_dropdown").change();
+               })
+          </script>
+     </body>
+</html>
