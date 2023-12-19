@@ -1,9 +1,11 @@
 Dynamic Dropdowns using JS and JQUERY.
 
 External Requirements (already in code):
+
 [jQuery 3.6.0 Core](https://releases.jquery.com/jquery/)
 
 Purpose:
+
 A simplified webpage to show one way to create "Dynamic Dropdowns" - a method of displaying different information on a webpage
 based on selections from dropdowns.
 

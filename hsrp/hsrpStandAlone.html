@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <style>
+               #build_wrapper{
+                    display: grid;
+                    padding: 0px 2rem;
+                    grid-template-columns: 2fr 1fr;
+                    grid-gap: 1rem;
+               }
+               #build_relic_list{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr; /* allow 3 relics per row */
+                    grid-gap: 1rem;
+               }
+               #build_relic_list > div{
+                    border: solid 0.1rem grey;
+                    background-color: #eeeeee;
+               }
+               .remove{
+                    float: right;
+               }
+               #totals{
+                    border: solid 0.1rem grey;
+               }
+               #relic_count{
+                    border-bottom: solid 0.1rem grey;
+               }
+               #lazy_wrapper{
+                    padding: 0px 2rem;
+               }
+               #relics_wrapper > div[class^="relic_container"]{
+                    display: grid;
+                    grid-template-columns: 100px 1fr 2fr 1fr;
+               }
+               div[class*="relic_container"]:nth-child(odd){
+                    background: #eeeeee
+               }
+               div[class*="relic_container"] > div{
+                    border: solid 0.1rem grey;
+               }
+          </style>
+     </head>
+     <body>
+          <h1>Editing build</h1>
+          <div id="build_wrapper">
+               <div id="build_relics">
+                    <!-- This code is coming from a place where the form could be "POSTED" to a server and the build saved.
+                         However as a "stand alone" page, there is no saving. So the Form stayed but the "action" and "method" were removed
+                         This allows for minimal changes in the conversion from Database to stand-alone -->
+                    <form action="" method="">
+                         <fieldset id="build_relic_list">
+                         </fieldset>
+                    </form>
+               </div>
+               <div id="totals">
+                    <div id="relic_count"></div>
+                    <div id="stat_increases">
+                         <div id="increased_msp"></div>
+                         <div id="increased_asp"></div>
+                         <div id="increased_str"></div>
+                         <div id="increased_sta"></div>
+                         <div id="increased_ene"></div>
+                         <div id="increased_arm"></div>
+                    </div>
+               </div>
+          </div>
+
+          <div id="lazy_wrapper">
+               <h3 style="text-align: center">Relic List</h3>
+               Description Includes:
+               <select name="description_filter" id="description_filter">
+                    <option value="All">All</option>
+                    <option value="Flight">Flight</option>
+                    <option value="On Attack">On Attack</option>
+                    <option value="Follower">Follower</option>
+                    <option value="Orbiter">Orbiter</option>
+               </select>
+               &nbsp;Stats Include:
+               <select name="stat_filter" id="stat_filter">
+                    <option value="All">All</option>
+                    <option value="msp">Move Speed</option>
+                    <option value="asp">Attack Speed</option>
+                    <option value="str">Strength</option>
+                    <option value="sta">Stamina</option>
+                    <option value="ene">Energy</option>
+                    <option value="arm">Armor</option>
+               </select>
+               <div id="relics_wrapper">
+                    <div class="relic_container_8">
+                         <div class="add_to_build" id="8"><button type="button" class="add_button_8">Add to Build</button></div>
+                         <div class="relic_name">Almighty Fedora</div>
+                         <div class="relic_description">Follower. Shoots at nearby enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_63">
+                         <div class="add_to_build" id="63"><button type="button" class="add_button_63">Add to Build</button></div>
+                         <div class="relic_name">Amazon Spear</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="msp" value="15">Movement Speed: 15</div>
+                              <div class="asp" value="2">Attack Speed: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_62">
+                         <div class="add_to_build" id="62"><button type="button" class="add_button_62">Add to Build</button></div>
+                         <div class="relic_name">Amputation Kit</div>
+                         <div class="relic_description">Flight.</div>
+                         <div class="relic_stats">
+                              <div class="asp" value="5">Attack Speed: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_9">
+                         <div class="add_to_build" id="9"><button type="button" class="add_button_9">Add to Build</button></div>
+                         <div class="relic_name">Ancient Rock</div>
+                         <div class="relic_description">Follower. Shoots big projectiles at enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_134">
+                         <div class="add_to_build" id="134"><button type="button" class="add_button_134">Add to Build</button></div>
+                         <div class="relic_name">Arcane Boots</div>
+                         <div class="relic_description">Flight.</div>
+                         <div class="relic_stats">
+                              <div class="ene" value="5">Energy: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_18">
+                         <div class="add_to_build" id="18"><button type="button" class="add_button_18">Add to Build</button></div>
+                         <div class="relic_name">Assassin&#x27;s Shuriken</div>
+                         <div class="relic_description">On Attack. 10% Chance to throw a piercing shuriken to the nearest enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_19">
+                         <div class="add_to_build" id="19"><button type="button" class="add_button_19">Add to Build</button></div>
+                         <div class="relic_name">Barbed Shield</div>
+                         <div class="relic_description">On Getting Attacked. 15% Chance to return damage back to the attacker.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_20">
+                         <div class="add_to_build" id="20"><button type="button" class="add_button_20">Add to Build</button></div>
+                         <div class="relic_name">Basilisk Tooth</div>
+                         <div class="relic_description">On Attack. 1% Chance to petrify the enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_64">
+                         <div class="add_to_build" id="64"><button type="button" class="add_button_64">Add to Build</button></div>
+                         <div class="relic_name">Blazing Boots</div>
+                         <div class="relic_description">Player leaves behind a trail of fire that damages enemies.</div>
+                         <div class="relic_stats">
+                              <div class="msp" value="5">Movement Speed: 5</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_65">
+                         <div class="add_to_build" id="65"><button type="button" class="add_button_65">Add to Build</button></div>
+                         <div class="relic_name">Bonsai Tree</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="3">Strength: 3%</div>
+                              <div class="sta" value="3">Stamina: 3%</div>
+                              <div class="ene" value="3">Energy: 3%</div>
+                              <div class="arm" value="3">Armor: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_21">
+                         <div class="add_to_build" id="21"><button type="button" class="add_button_21">Add to Build</button></div>
+                         <div class="relic_name">Bracer of Life</div>
+                         <div class="relic_description">+5% max HP health regen.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_66">
+                         <div class="add_to_build" id="66"><button type="button" class="add_button_66">Add to Build</button></div>
+                         <div class="relic_name">Butcher Knife</div>
+                         <div class="relic_description">On Attack. 20% chance to shoot a blood shockwave dealing damage to enemies in a line.</div>
+                         <div class="relic_stats">
+                              <div class="msp" value="5">Movement Speed: 5</div>
+                              <div class="str" value="1">Strength: 1%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_67">
+                         <div class="add_to_build" id="67"><button type="button" class="add_button_67">Add to Build</button></div>
+                         <div class="relic_name">Butterfly Knife</div>
+                         <div class="relic_description">On Attack. 5% chance to make the next attack a critical strike for 75% more damage.</div>
+                         <div class="relic_stats">
+                              <div class="asp" value="2">Attack Speed: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_22">
+                         <div class="add_to_build" id="22"><button type="button" class="add_button_22">Add to Build</button></div>
+                         <div class="relic_name">Cactus</div>
+                         <div class="relic_description">On Attack. Spawns a small cactus below the nearest enemy, damaging and slowing them.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_68">
+                         <div class="add_to_build" id="68"><button type="button" class="add_button_68">Add to Build</button></div>
+                         <div class="relic_name">Cake</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="3">Stamina: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_23">
+                         <div class="add_to_build" id="23"><button type="button" class="add_button_23">Add to Build</button></div>
+                         <div class="relic_name">Charmed Blood</div>
+                         <div class="relic_description">On Attack. 10% chance to lifesteal, heal for 5% of the damage dealt.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_69">
+                         <div class="add_to_build" id="69"><button type="button" class="add_button_69">Add to Build</button></div>
+                         <div class="relic_name">Cheeseburger</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="4">Stamina: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_70">
+                         <div class="add_to_build" id="70"><button type="button" class="add_button_70">Add to Build</button></div>
+                         <div class="relic_name">Commander&#x27;s Sword</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="2">Attack Speed: 2%</div>
+                              <div class="str" value="5">Strength: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_71">
+                         <div class="add_to_build" id="71"><button type="button" class="add_button_71">Add to Build</button></div>
+                         <div class="relic_name">Cookies &amp; Milk</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="2">Stamina: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_24">
+                         <div class="add_to_build" id="24"><button type="button" class="add_button_24">Add to Build</button></div>
+                         <div class="relic_name">Daddy&#x27;s Key Chain</div>
+                         <div class="relic_description">On Pickup. 65% Chance to gain normal keys and 60% chance to gain crystal keys.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_72">
+                         <div class="add_to_build" id="72"><button type="button" class="add_button_72">Add to Build</button></div>
+                         <div class="relic_name">Damien&#x27;s Amulet</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="8">Strength: 8%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_125">
+                         <div class="add_to_build" id="125"><button type="button" class="add_button_125">Add to Build</button></div>
+                         <div class="relic_name">Damien&#x27;s Eye</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="ene" value="8">Energy: 8%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_73">
+                         <div class="add_to_build" id="73"><button type="button" class="add_button_73">Add to Build</button></div>
+                         <div class="relic_name">Damned Buckler</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="arm" value="4">Armor: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_74">
+                         <div class="add_to_build" id="74"><button type="button" class="add_button_74">Add to Build</button></div>
+                         <div class="relic_name">DaPlayer Head</div>
+                         <div class="relic_description">On Kill. 3% chance to spawn flies that damage nearby enemies.</div>
+                         <div class="relic_stats">
+                              <div class="str" value="3">Strength: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_132">
+                         <div class="add_to_build" id="132"><button type="button" class="add_button_132">Add to Build</button></div>
+                         <div class="relic_name">Daze Rune</div>
+                         <div class="relic_description">On Attack. 18% chance to stun the enemy for 2 seconds.</div>
+                         <div class="relic_stats">
+                              <div class="ene" value="2">Energy: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_75">
+                         <div class="add_to_build" id="75"><button type="button" class="add_button_75">Add to Build</button></div>
+                         <div class="relic_name">Death&#x27;s Scythe</div>
+                         <div class="relic_description">On Attack. 20% chance to shoot skulls from player.</div>
+                         <div class="relic_stats">
+                              <div class="str" value="2">Strength: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_2">
+                         <div class="add_to_build" id="2"><button type="button" class="add_button_2">Add to Build</button></div>
+                         <div class="relic_name">Demon Sheep</div>
+                         <div class="relic_description">Orbiter. Deals damage to enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_25">
+                         <div class="add_to_build" id="25"><button type="button" class="add_button_25">Add to Build</button></div>
+                         <div class="relic_name">Devil Horn</div>
+                         <div class="relic_description">While below 10% health, damage is increased by 100%.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_26">
+                         <div class="add_to_build" id="26"><button type="button" class="add_button_26">Add to Build</button></div>
+                         <div class="relic_name">Devil Skull</div>
+                         <div class="relic_description">On Attack. Shoots damaging projectiles in a circle around the player.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_76">
+                         <div class="add_to_build" id="76"><button type="button" class="add_button_76">Add to Build</button></div>
+                         <div class="relic_name">Dirge</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="3">Attack Speed: 3%</div>
+                              <div class="str" value="3">Strength: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_77">
+                         <div class="add_to_build" id="77"><button type="button" class="add_button_77">Add to Build</button></div>
+                         <div class="relic_name">Doom Flute</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="5">Attack Speed: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_27">
+                         <div class="add_to_build" id="27"><button type="button" class="add_button_27">Add to Build</button></div>
+                         <div class="relic_name">Dragon Shield</div>
+                         <div class="relic_description">On Getting Attacked. Chance to spawn a meteor, damaging enemies in a line.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_3">
+                         <div class="add_to_build" id="3"><button type="button" class="add_button_3">Add to Build</button></div>
+                         <div class="relic_name">F.E.T.U.S.</div>
+                         <div class="relic_description">Orbiter. Deals 25% of weapon damage.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_28">
+                         <div class="add_to_build" id="28"><button type="button" class="add_button_28">Add to Build</button></div>
+                         <div class="relic_name">Fire &amp; Ice</div>
+                         <div class="relic_description">On Attack. 10% to burn or freeze the enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_29">
+                         <div class="add_to_build" id="29"><button type="button" class="add_button_29">Add to Build</button></div>
+                         <div class="relic_name">Fortune Card</div>
+                         <div class="relic_description">90% Chance to gain normal and crystal keys. 10% chance to summon a random miniboss (if room host) and a sheep enemy if not room host.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_78">
+                         <div class="add_to_build" id="78"><button type="button" class="add_button_78">Add to Build</button></div>
+                         <div class="relic_name">Frostmourne</div>
+                         <div class="relic_description">On Attack. 5% chance to shoot and ice shockwave damaging and freezing enemies in a line.</div>
+                         <div class="relic_stats">
+                              <div class="str" value="3">Strength: 3%</div>
+                              <div class="ene" value="3">Energy: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_30">
+                         <div class="add_to_build" id="30"><button type="button" class="add_button_30">Add to Build</button></div>
+                         <div class="relic_name">Frozen Orb</div>
+                         <div class="relic_description">On Attack. 18% chance to freeze the enemy for 2 seconds.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_79">
+                         <div class="add_to_build" id="79"><button type="button" class="add_button_79">Add to Build</button></div>
+                         <div class="relic_name">Golden Armor</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="arm" value="4">Armor: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_80">
+                         <div class="add_to_build" id="80"><button type="button" class="add_button_80">Add to Build</button></div>
+                         <div class="relic_name">Golden Axe</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="3">Strength: 3%</div>
+                              <div class="arm" value="4">Armor: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_81">
+                         <div class="add_to_build" id="81"><button type="button" class="add_button_81">Add to Build</button></div>
+                         <div class="relic_name">Golden Cube</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="3">Strength: 3%</div>
+                              <div class="sta" value="3">Stamina: 3%</div>
+                              <div class="ene" value="3">Energy: 3%</div>
+                              <div class="arm" value="3">Armor: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_82">
+                         <div class="add_to_build" id="82"><button type="button" class="add_button_82">Add to Build</button></div>
+                         <div class="relic_name">Golden Dagger</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="ene" value="4">Energy: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_135">
+                         <div class="add_to_build" id="135"><button type="button" class="add_button_135">Add to Build</button></div>
+                         <div class="relic_name">Golden Fleece</div>
+                         <div class="relic_description">Flight.</div>
+                         <div class="relic_stats">
+                              <div class="str" value="5">Strength: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_83">
+                         <div class="add_to_build" id="83"><button type="button" class="add_button_83">Add to Build</button></div>
+                         <div class="relic_name">Golden Ring</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="4">Stamina: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_84">
+                         <div class="add_to_build" id="84"><button type="button" class="add_button_84">Add to Build</button></div>
+                         <div class="relic_name">Golden Sword</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="4">Strength: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_4">
+                         <div class="add_to_build" id="4"><button type="button" class="add_button_4">Add to Build</button></div>
+                         <div class="relic_name">Guardian Angel</div>
+                         <div class="relic_description">Orbiter. Deals damage to enemies. Knockback enemies that are close.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_85">
+                         <div class="add_to_build" id="85"><button type="button" class="add_button_85">Add to Build</button></div>
+                         <div class="relic_name">Half Eaten Mochi</div>
+                         <div class="relic_description">Increases health gained from orbs by 100%</div>
+                         <div class="relic_stats">
+                              <div class="sta" value="2">Stamina: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_31">
+                         <div class="add_to_build" id="31"><button type="button" class="add_button_31">Add to Build</button></div>
+                         <div class="relic_name">Hand of Midas</div>
+                         <div class="relic_description">93% chance to turn enemies into gold upon death.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_86">
+                         <div class="add_to_build" id="86"><button type="button" class="add_button_86">Add to Build</button></div>
+                         <div class="relic_name">Hand Scythe</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="4">Attack Speed: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_87">
+                         <div class="add_to_build" id="87"><button type="button" class="add_button_87">Add to Build</button></div>
+                         <div class="relic_name">Hellscream Axe</div>
+                         <div class="relic_description">On Attack. 30% chance to set enemy on fire for 5 seconds, dealing 15% total damage.</div>
+                         <div class="relic_stats">
+                              <div class="asp" value="1">Attack Speed: 1%</div>
+                              <div class="str" value="4">Strength: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_32">
+                         <div class="add_to_build" id="32"><button type="button" class="add_button_32">Add to Build</button></div>
+                         <div class="relic_name">Helm of Chaos</div>
+                         <div class="relic_description">Falling below 10% health activate a shockwave, damaging and pushing enemies back.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_88">
+                         <div class="add_to_build" id="88"><button type="button" class="add_button_88">Add to Build</button></div>
+                         <div class="relic_name">Holy Bible</div>
+                         <div class="relic_description">Flight.</div>
+                         <div class="relic_stats">
+                              <div class="sta" value="5">Stamina: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_89">
+                         <div class="add_to_build" id="89"><button type="button" class="add_button_89">Add to Build</button></div>
+                         <div class="relic_name">Holy Grail</div>
+                         <div class="relic_description">Talents +2. On Attack. 5% chance to smite enemies on screen.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_33">
+                         <div class="add_to_build" id="33"><button type="button" class="add_button_33">Add to Build</button></div>
+                         <div class="relic_name">Homing Shots</div>
+                         <div class="relic_description">Player projectiles home into enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_10">
+                         <div class="add_to_build" id="10"><button type="button" class="add_button_10">Add to Build</button></div>
+                         <div class="relic_name">Honeybee</div>
+                         <div class="relic_description">Follower. Shoots honey that slows enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_34">
+                         <div class="add_to_build" id="34"><button type="button" class="add_button_34">Add to Build</button></div>
+                         <div class="relic_name">Horned Mask</div>
+                         <div class="relic_description">You can only get positive effects from Devil Shrines and Devils&#x27; Head traps do not shoot at you.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_90">
+                         <div class="add_to_build" id="90"><button type="button" class="add_button_90">Add to Build</button></div>
+                         <div class="relic_name">Jefre&#x27;s Subscription</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="1">Strength: 1%</div>
+                              <div class="sta" value="5">Stamina: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_35">
+                         <div class="add_to_build" id="35"><button type="button" class="add_button_35">Add to Build</button></div>
+                         <div class="relic_name">Jungle Vial</div>
+                         <div class="relic_description">On Attack. 15% chance to create a poison cloud that applies a poison debuff to enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_11">
+                         <div class="add_to_build" id="11"><button type="button" class="add_button_11">Add to Build</button></div>
+                         <div class="relic_name">Karp Head</div>
+                         <div class="relic_description">Follower. Shoots at enemies. Provides underwater breathing.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_36">
+                         <div class="add_to_build" id="36"><button type="button" class="add_button_36">Add to Build</button></div>
+                         <div class="relic_name">Lantern</div>
+                         <div class="relic_description">On Attack. 5% chance to heal player 10% of max HP.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_91">
+                         <div class="add_to_build" id="91"><button type="button" class="add_button_91">Add to Build</button></div>
+                         <div class="relic_name">Large Beer</div>
+                         <div class="relic_description">On Attack. 5% chance to throw up, dealing damage to enemies caught in it.</div>
+                         <div class="relic_stats">
+                              <div class="sta" value="2">Stamina: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_93">
+                         <div class="add_to_build" id="93"><button type="button" class="add_button_93">Add to Build</button></div>
+                         <div class="relic_name">Light Katana</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="3">Attack Speed: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_92">
+                         <div class="add_to_build" id="92"><button type="button" class="add_button_92">Add to Build</button></div>
+                         <div class="relic_name">Lightning Ball</div>
+                         <div class="relic_description">On Attack. 5% chance to throw a lightning orb at the nearest enemy.</div>
+                         <div class="relic_stats">
+                              <div class="asp" value="1">Attack Speed: 1%</div>
+                              <div class="str" value="1">Strength: 1%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_128">
+                         <div class="add_to_build" id="128"><button type="button" class="add_button_128">Add to Build</button></div>
+                         <div class="relic_name">Lost Wand</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="5">Attack Speed: 5%</div>
+                              <div class="sta" value="2">Stamina: 2%</div>
+                              <div class="ene" value="2">Energy: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_37">
+                         <div class="add_to_build" id="37"><button type="button" class="add_button_37">Add to Build</button></div>
+                         <div class="relic_name">Lotto Ticket</div>
+                         <div class="relic_description">On Pickup. Gives 8000 gold.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_126">
+                         <div class="add_to_build" id="126"><button type="button" class="add_button_126">Add to Build</button></div>
+                         <div class="relic_name">Mage&#x27;s Handbook</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="2">Stamina: 2%</div>
+                              <div class="ene" value="2">Energy: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_94">
+                         <div class="add_to_build" id="94"><button type="button" class="add_button_94">Add to Build</button></div>
+                         <div class="relic_name">Magic Mushroom</div>
+                         <div class="relic_description">Talents +1.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_133">
+                         <div class="add_to_build" id="133"><button type="button" class="add_button_133">Add to Build</button></div>
+                         <div class="relic_name">Magic Sphere</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="ene" value="4">Energy: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_38">
+                         <div class="add_to_build" id="38"><button type="button" class="add_button_38">Add to Build</button></div>
+                         <div class="relic_name">Magnet</div>
+                         <div class="relic_description">Increases pickup range of gold, keys, and rubies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_39">
+                         <div class="add_to_build" id="39"><button type="button" class="add_button_39">Add to Build</button></div>
+                         <div class="relic_name">Mana Dice</div>
+                         <div class="relic_description">On Attack. 5% chance to restore some mana.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_138">
+                         <div class="add_to_build" id="138"><button type="button" class="add_button_138">Add to Build</button></div>
+                         <div class="relic_name">Mantle of Arthus</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="4">Stamina: 4%</div>
+                              <div class="arm" value="4">Armor: 4%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_95">
+                         <div class="add_to_build" id="95"><button type="button" class="add_button_95">Add to Build</button></div>
+                         <div class="relic_name">Mayo&#x27;s Old Sock</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="1">Strength: 1%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_40">
+                         <div class="add_to_build" id="40"><button type="button" class="add_button_40">Add to Build</button></div>
+                         <div class="relic_name">Metal Detector</div>
+                         <div class="relic_description">Follower. Creates an indicator on player that points to the nearest mining node.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_41">
+                         <div class="add_to_build" id="41"><button type="button" class="add_button_41">Add to Build</button></div>
+                         <div class="relic_name">Mighty Sushi</div>
+                         <div class="relic_description">On Attack. 5% chance to throw out an explosive sushi, damaging enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_12">
+                         <div class="add_to_build" id="12"><button type="button" class="add_button_12">Add to Build</button></div>
+                         <div class="relic_name">Minisect</div>
+                         <div class="relic_description">Follower. Shoots at nearby enemies, 4 directions (cardinal).</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_96">
+                         <div class="add_to_build" id="96"><button type="button" class="add_button_96">Add to Build</button></div>
+                         <div class="relic_name">Monkey King Bar</div>
+                         <div class="relic_description">Flight.</div>
+                         <div class="relic_stats">
+                              <div class="msp" value="15">Movement Speed: 15</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_42">
+                         <div class="add_to_build" id="42"><button type="button" class="add_button_42">Add to Build</button></div>
+                         <div class="relic_name">Necro&#x27;s Finger</div>
+                         <div class="relic_description">On Attack. 5% chance to spawn a soul that seeks out and damages an enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_131">
+                         <div class="add_to_build" id="131"><button type="button" class="add_button_131">Add to Build</button></div>
+                         <div class="relic_name">Newt Tail</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="5">Stamina: 5%</div>
+                              <div class="ene" value="1">Energy: 1%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_97">
+                         <div class="add_to_build" id="97"><button type="button" class="add_button_97">Add to Build</button></div>
+                         <div class="relic_name">Nunchucks</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="5">Attack Speed: 5%</div>
+                              <div class="str" value="2">Strength: 2%</div>
+                              <div class="sta" value="1">Stamina: 1%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_98">
+                         <div class="add_to_build" id="98"><button type="button" class="add_button_98">Add to Build</button></div>
+                         <div class="relic_name">Odd Book of Spells</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="ene" value="3">Energy: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_43">
+                         <div class="add_to_build" id="43"><button type="button" class="add_button_43">Add to Build</button></div>
+                         <div class="relic_name">Odin&#x27;s Sword</div>
+                         <div class="relic_description">On Attack. 5% chance to set nearby enemies on fire.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_99">
+                         <div class="add_to_build" id="99"><button type="button" class="add_button_99">Add to Build</button></div>
+                         <div class="relic_name">Ogre Club</div>
+                         <div class="relic_description">On Attack. 18% chance to stun the enemy.</div>
+                         <div class="relic_stats">
+                              <div class="str" value="2">Strength: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_124">
+                         <div class="add_to_build" id="124"><button type="button" class="add_button_124">Add to Build</button></div>
+                         <div class="relic_name">Old Man&#x27;s Coffee Mug</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="3">Attack Speed: 3%</div>
+                              <div class="ene" value="3">Energy: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_127">
+                         <div class="add_to_build" id="127"><button type="button" class="add_button_127">Add to Build</button></div>
+                         <div class="relic_name">Old Rune Stone</div>
+                         <div class="relic_description">Might add 5% mana?</div>
+                         <div class="relic_stats">
+                              <div class="ene" value="2">Energy: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_44">
+                         <div class="add_to_build" id="44"><button type="button" class="add_button_44">Add to Build</button></div>
+                         <div class="relic_name">Oversized</div>
+                         <div class="relic_description">Doubles the size of projectiles.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_130">
+                         <div class="add_to_build" id="130"><button type="button" class="add_button_130">Add to Build</button></div>
+                         <div class="relic_name">Phoenix Feather</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="msp" value="5">Movement Speed: 5</div>
+                              <div class="ene" value="2">Energy: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_13">
+                         <div class="add_to_build" id="13"><button type="button" class="add_button_13">Add to Build</button></div>
+                         <div class="relic_name">Pickled Brain</div>
+                         <div class="relic_description">Follower. Summons a zombie that will melee attack enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_46">
+                         <div class="add_to_build" id="46"><button type="button" class="add_button_46">Add to Build</button></div>
+                         <div class="relic_name">Poison Spear</div>
+                         <div class="relic_description">On Attack. 20% chance to apply poison debuff to the enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_100">
+                         <div class="add_to_build" id="100"><button type="button" class="add_button_100">Add to Build</button></div>
+                         <div class="relic_name">Razer Blade</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="3">Attack Speed: 3%</div>
+                              <div class="str" value="1">Strength: 1%</div>
+                              <div class="sta" value="1">Stamina: 1%</div>
+                              <div class="ene" value="1">Energy: 1%</div>
+                              <div class="arm" value="1">Armor: 1%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_47">
+                         <div class="add_to_build" id="47"><button type="button" class="add_button_47">Add to Build</button></div>
+                         <div class="relic_name">Razer Headset</div>
+                         <div class="relic_description">Pulses area around the player damaging enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_48">
+                         <div class="add_to_build" id="48"><button type="button" class="add_button_48">Add to Build</button></div>
+                         <div class="relic_name">Razor Leaf</div>
+                         <div class="relic_description">On Attack. 5% chance to send out razor leaves that damage enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_49">
+                         <div class="add_to_build" id="49"><button type="button" class="add_button_49">Add to Build</button></div>
+                         <div class="relic_name">Razorwire</div>
+                         <div class="relic_description">On Attack. 12% chance to cause enemies to bleed over time.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_50">
+                         <div class="add_to_build" id="50"><button type="button" class="add_button_50">Add to Build</button></div>
+                         <div class="relic_name">Rice &amp; Chopsticks</div>
+                         <div class="relic_description">On Attack. 5% change to disarm the enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_101">
+                         <div class="add_to_build" id="101"><button type="button" class="add_button_101">Add to Build</button></div>
+                         <div class="relic_name">Rock Belt</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="msp" value="10">Movement Speed: 10</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_51">
+                         <div class="add_to_build" id="51"><button type="button" class="add_button_51">Add to Build</button></div>
+                         <div class="relic_name">Rocket Battery</div>
+                         <div class="relic_description">On Attack. 5% chance to fire a homing missile at the nearest enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_102">
+                         <div class="add_to_build" id="102"><button type="button" class="add_button_102">Add to Build</button></div>
+                         <div class="relic_name">Rusted Armor</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="arm" value="2">Armor: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_103">
+                         <div class="add_to_build" id="103"><button type="button" class="add_button_103">Add to Build</button></div>
+                         <div class="relic_name">Rusted Axe</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="1">Strength: 1%</div>
+                              <div class="arm" value="2">Armor: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_104">
+                         <div class="add_to_build" id="104"><button type="button" class="add_button_104">Add to Build</button></div>
+                         <div class="relic_name">Rusted Cube</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="1">Strength: 1%</div>
+                              <div class="sta" value="1">Stamina: 1%</div>
+                              <div class="ene" value="1">Energy: 1%</div>
+                              <div class="arm" value="1">Armor: 1%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_105">
+                         <div class="add_to_build" id="105"><button type="button" class="add_button_105">Add to Build</button></div>
+                         <div class="relic_name">Rusted Dagger</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="ene" value="2">Energy: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_106">
+                         <div class="add_to_build" id="106"><button type="button" class="add_button_106">Add to Build</button></div>
+                         <div class="relic_name">Rusted Ring</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="2">Stamina: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_107">
+                         <div class="add_to_build" id="107"><button type="button" class="add_button_107">Add to Build</button></div>
+                         <div class="relic_name">Rusted Sword</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="2">Strength: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_108">
+                         <div class="add_to_build" id="108"><button type="button" class="add_button_108">Add to Build</button></div>
+                         <div class="relic_name">Satan&#x27;s Eye</div>
+                         <div class="relic_description">On Attack. 5% chance to send Hellfire forward, damaging enemies.</div>
+                         <div class="relic_stats">
+                              <div class="str" value="1">Strength: 1%</div>
+                              <div class="sta" value="2">Stamina: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_109">
+                         <div class="add_to_build" id="109"><button type="button" class="add_button_109">Add to Build</button></div>
+                         <div class="relic_name">Sausage</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="2">Stamina: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_137">
+                         <div class="add_to_build" id="137"><button type="button" class="add_button_137">Add to Build</button></div>
+                         <div class="relic_name">Seven League Boots</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="msp" value="10">Movement Speed: 10</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_52">
+                         <div class="add_to_build" id="52"><button type="button" class="add_button_52">Add to Build</button></div>
+                         <div class="relic_name">Shattered Katana</div>
+                         <div class="relic_description">On Attack. 3% chance to spawn tornados that damage nearby enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_136">
+                         <div class="add_to_build" id="136"><button type="button" class="add_button_136">Add to Build</button></div>
+                         <div class="relic_name">Shield of El Cid</div>
+                         <div class="relic_description">Flight.</div>
+                         <div class="relic_stats">
+                              <div class="arm" value="5">Armor: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_5">
+                         <div class="add_to_build" id="5"><button type="button" class="add_button_5">Add to Build</button></div>
+                         <div class="relic_name">Shredder</div>
+                         <div class="relic_description">Orbiter. Deals damage to enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_14">
+                         <div class="add_to_build" id="14"><button type="button" class="add_button_14">Add to Build</button></div>
+                         <div class="relic_name">Shrunken Head</div>
+                         <div class="relic_description">Follower. Shoots poisoning shots at nearby enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_110">
+                         <div class="add_to_build" id="110"><button type="button" class="add_button_110">Add to Build</button></div>
+                         <div class="relic_name">Silver Armor</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="arm" value="3">Armor: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_111">
+                         <div class="add_to_build" id="111"><button type="button" class="add_button_111">Add to Build</button></div>
+                         <div class="relic_name">Silver Axe</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="2">Strength: 2%</div>
+                              <div class="arm" value="3">Armor: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_112">
+                         <div class="add_to_build" id="112"><button type="button" class="add_button_112">Add to Build</button></div>
+                         <div class="relic_name">Silver Cube</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="2">Strength: 2%</div>
+                              <div class="sta" value="2">Stamina: 2%</div>
+                              <div class="ene" value="2">Energy: 2%</div>
+                              <div class="arm" value="2">Armor: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_113">
+                         <div class="add_to_build" id="113"><button type="button" class="add_button_113">Add to Build</button></div>
+                         <div class="relic_name">Silver Dagger</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="ene" value="3">Energy: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_114">
+                         <div class="add_to_build" id="114"><button type="button" class="add_button_114">Add to Build</button></div>
+                         <div class="relic_name">Silver Ring</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="sta" value="3">Stamina: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_115">
+                         <div class="add_to_build" id="115"><button type="button" class="add_button_115">Add to Build</button></div>
+                         <div class="relic_name">Silver Sword</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="3">Strength: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_53">
+                         <div class="add_to_build" id="53"><button type="button" class="add_button_53">Add to Build</button></div>
+                         <div class="relic_name">Skeleton Key</div>
+                         <div class="relic_description">Gives the player 99 normal keys.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_116">
+                         <div class="add_to_build" id="116"><button type="button" class="add_button_116">Add to Build</button></div>
+                         <div class="relic_name">Skull Axe</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="3">Strength: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_15">
+                         <div class="add_to_build" id="15"><button type="button" class="add_button_15">Add to Build</button></div>
+                         <div class="relic_name">Skull Bat</div>
+                         <div class="relic_description">Follower. Shoots two projectiles at nearby enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_54">
+                         <div class="add_to_build" id="54"><button type="button" class="add_button_54">Add to Build</button></div>
+                         <div class="relic_name">Small Spikey</div>
+                         <div class="relic_description">On Attack. 5% chance to spawn orbital balls that damage enemies on contact.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_55">
+                         <div class="add_to_build" id="55"><button type="button" class="add_button_55">Add to Build</button></div>
+                         <div class="relic_name">Spectral Arrow</div>
+                         <div class="relic_description">Projectiles ignore collision.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_117">
+                         <div class="add_to_build" id="117"><button type="button" class="add_button_117">Add to Build</button></div>
+                         <div class="relic_name">Spirit Skull</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="2">Strength: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_7">
+                         <div class="add_to_build" id="7"><button type="button" class="add_button_7">Add to Build</button></div>
+                         <div class="relic_name">Steve&#x27;s Dirty Head</div>
+                         <div class="relic_description">Orbiter. Shoots at nearby enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_56">
+                         <div class="add_to_build" id="56"><button type="button" class="add_button_56">Add to Build</button></div>
+                         <div class="relic_name">Stigmata</div>
+                         <div class="relic_description">Dropping below 5% health will boost health regen significantly.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_118">
+                         <div class="add_to_build" id="118"><button type="button" class="add_button_118">Add to Build</button></div>
+                         <div class="relic_name">Storm Dagger</div>
+                         <div class="relic_description">On Attack. 22% chance to call down lightning, damaging the enemy.</div>
+                         <div class="relic_stats">
+                              <div class="asp" value="3">Attack Speed: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_6">
+                         <div class="add_to_build" id="6"><button type="button" class="add_button_6">Add to Build</button></div>
+                         <div class="relic_name">Templar Shield</div>
+                         <div class="relic_description">Orbiter. Blocks enemy projectiles. Deals 25% weapon damage to enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_119">
+                         <div class="add_to_build" id="119"><button type="button" class="add_button_119">Add to Build</button></div>
+                         <div class="relic_name">Tequila</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="5">Attack Speed: 5%</div>
+                              <div class="str" value="3">Strength: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_16">
+                         <div class="add_to_build" id="16"><button type="button" class="add_button_16">Add to Build</button></div>
+                         <div class="relic_name">The Eye</div>
+                         <div class="relic_description">Follower. Shoots mortar-like projectiles at nearby enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_120">
+                         <div class="add_to_build" id="120"><button type="button" class="add_button_120">Add to Build</button></div>
+                         <div class="relic_name">The Spoon</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="msp" value="10">Movement Speed: 10</div>
+                              <div class="str" value="2">Strength: 2%</div>
+                              <div class="sta" value="2">Stamina: 2%</div>
+                              <div class="ene" value="2">Energy: 2%</div>
+                              <div class="arm" value="2">Armor: 2%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_57">
+                         <div class="add_to_build" id="57"><button type="button" class="add_button_57">Add to Build</button></div>
+                         <div class="relic_name">The Sun</div>
+                         <div class="relic_description">On Attack. 5% chance to call down a sunray, damaging the nearest enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_58">
+                         <div class="add_to_build" id="58"><button type="button" class="add_button_58">Add to Build</button></div>
+                         <div class="relic_name">Titan&#x27;s Gladius</div>
+                         <div class="relic_description">On Attack. 1% chance to deal massive lightning damage to the target.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_121">
+                         <div class="add_to_build" id="121"><button type="button" class="add_button_121">Add to Build</button></div>
+                         <div class="relic_name">Token of Luck</div>
+                         <div class="relic_description">Magic Find +75%</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_45">
+                         <div class="add_to_build" id="45"><button type="button" class="add_button_45">Add to Build</button></div>
+                         <div class="relic_name">Toxic Pendant</div>
+                         <div class="relic_description">On Getting Attacked. 15% chance to apply poison to the enemy.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_122">
+                         <div class="add_to_build" id="122"><button type="button" class="add_button_122">Add to Build</button></div>
+                         <div class="relic_name">Triforce</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="str" value="3">Strength: 3%</div>
+                              <div class="sta" value="3">Stamina: 3%</div>
+                              <div class="ene" value="3">Energy: 3%</div>
+                              <div class="arm" value="3">Armor: 3%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_59">
+                         <div class="add_to_build" id="59"><button type="button" class="add_button_59">Add to Build</button></div>
+                         <div class="relic_name">Twinblade</div>
+                         <div class="relic_description">On Attack. 5% chance to make the next attack a critical strike for 75% more damage.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_17">
+                         <div class="add_to_build" id="17"><button type="button" class="add_button_17">Add to Build</button></div>
+                         <div class="relic_name">War Zeppelin</div>
+                         <div class="relic_description">Follower. Shoots missiles at nearby enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_123">
+                         <div class="add_to_build" id="123"><button type="button" class="add_button_123">Add to Build</button></div>
+                         <div class="relic_name">Whip</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="5">Attack Speed: 5%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_60">
+                         <div class="add_to_build" id="60"><button type="button" class="add_button_60">Add to Build</button></div>
+                         <div class="relic_name">Witch Claw</div>
+                         <div class="relic_description">On Attack. 5% chance to turn the enemy into an apple head, stunning them for 3 seconds.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+                    <div class="relic_container_129">
+                         <div class="add_to_build" id="129"><button type="button" class="add_button_129">Add to Build</button></div>
+                         <div class="relic_name">Wizards Mind Bomb</div>
+                         <div class="relic_description"></div>
+                         <div class="relic_stats">
+                              <div class="asp" value="2">Attack Speed: 2%</div>
+                              <div class="sta" value="2">Stamina: 2%</div>
+                              <div class="ene" value="1">Energy: 1%</div>
+                         </div>
+                    </div>
+                    <div class="relic_container_61">
+                         <div class="add_to_build" id="61"><button type="button" class="add_button_61">Add to Build</button></div>
+                         <div class="relic_name">Zombie&#x27;s Face</div>
+                         <div class="relic_description">Slows nearby enemies.</div>
+                         <div class="relic_stats">
+                         </div>
+                    </div>
+               </div>
+          </div>
+
+          <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+          <script>
+               function run_filters(){
+                    console.log("Running filters for Description Contains: " + $("#description_filter option:selected").text() + " and Stats Inlucde: " + $("#stat_filter option:selected").text());
+                    // quick short circuit for both set to All
+                    if($("#description_filter option:selected").text() === "All" && $("#stat_filter option:selected").text() === "All"){
+                         // unhide all relic containers under the relic wrapper
+                         $("#relics_wrapper").children("div[class^='relic_container']").css("display", "");
+                         // don't forget to rehide the selected ones...
+                         hide_initial_relics();
+                         // get out
+                         return void 0;
+                    }
+                    // Need to know if we're running them together (both !== "All") or separately (one === "All")
+                    // The following cases are possible: Description !== All && Stats === All, Description === All && Stats !== All, Description && Stats !== All
+                    // since we made it this far, we know both !== All, so just run it I guess?
+                    if($("#description_filter option:selected").text() !== "All" && $("#stat_filter option:selected").text() === "All"){
+                         // only filtering on description, stats currently set to all
+                         // get "text" of the selected option from dropdown, this will be used to compare to the Description "column"
+                         selected_text = $("#description_filter option:selected").text();
+                         // get all descriptions
+                         descriptions = $(".relic_description");
+                         // now we do things for EACH DESCRIPTION
+                         descriptions.each(function(){
+                              // if selected "value"/text found in description, unhide the parent container
+                              if(($(this).text().includes(selected_text))){
+                                   $(this).closest("div[class^='relic_container']").css("display", "");
+                              }
+                              // else make sure it's hidden
+                              else{
+                                   $(this).closest("div[class^='relic_container']").css("display", "none");
+                              }
+                         })
+                    }
+                    else if($("#description_filter option:selected").text() === "All" && $("#stat_filter option:selected").text() !== "All"){
+                         // only filtering on stats, description currently set to all
+                         // get "val" of the selected option from dropdown, this will be used to compare to the Stats "column" CLASSES
+                         selected_text = $("#stat_filter option:selected").val();
+                         // get all stat "wrappers"
+                         stat_wrappers = $(".relic_stats");
+                         // now we do things for EACH wrapper
+                         stat_wrappers.each(function(){
+                              // if selected "value"/text found in stat_wrapper children class list, unhide parent container
+                              if(($(this).children().hasClass(selected_text))){
+                                   $(this).closest("div[class^='relic_container']").css("display", "");
+                              }
+                              // else make sure it's hidden
+                              else{
+                                   $(this).closest("div[class^='relic_container']").css("display", "none");
+                              }
+                         })
+                    }
+                    else{
+                         // filtering on both, because description is in the "middle" we'll work with that so we don't have to chain calls to prev.
+                         // get "text" of the selected option from dropdown, this will be used to compare to the Description "column"
+                         description_text = $("#description_filter option:selected").text();
+                         // get "val" of the selected option from dropdown, this will be used to compare to the Stats "column" CLASSES
+                         stats_text = $("#stat_filter option:selected").val();
+                         // get all descriptions, we don't need the stats wrapper. We'll grab that with "next"
+                         descriptions = $(".relic_description");
+                         // now we do things for EACH DESCRIPTION
+                         descriptions.each(function(){
+                              // if selected "value"/text found in description AND relic_stats children contain the appropriate class
+                              if(($(this).text().includes(description_text)) && ($(this).next(".relic_stats").children().hasClass(stats_text))){
+                                   $(this).closest("div[class^='relic_container']").css("display", "");
+                              }
+                              // else make sure it's hidden
+                              else{
+                                   $(this).closest("div[class^='relic_container']").css("display", "none");
+                              }
+                         })
+                    }
+                    // don't forget to rehide the selected relics...
+                    hide_initial_relics();
+               }
+
+               function add_to_build(){
+                    // First things first, make sure we don't have more than 30 relics.
+                    count = $("#build_relic_list").find("input").length;
+                    if(count >= 30){
+                         alert("Maximum Relics already added (or built with too many from Admin). Remove some relics first before trying to add more.");
+                         return void 0;
+                    }
+                    // hide container
+                    $(this).closest("div[class^='relic_container']").css("display", "none");
+                    // add "input" to build area
+                    rname = $(this).closest("div[class^='relic_container']").find(".relic_name").text();
+                    rid = $(this).closest(".add_to_build").attr("id");
+                    relic_input_html = "<div class='" + rid + "'>" + rname + " <input type='hidden' name='relic_" + rid + "' id='" + rid + "' value='" + rid + "' readonly></input><button type='button' class='" + rid + " remove'>Remove Relic</button></div>"
+                    $("#build_relic_list").append(relic_input_html);
+                    // adjust relic count
+                    adjust_relic_count();
+                    // run stat calculations
+                    adjust_stats();
+                    // bind remove from build buttons - "catch all", could use "rid" to target new button only.
+                    $("button.remove").off();
+                    $("button.remove").on("click", remove_from_build);
+               }
+
+               function adjust_relic_count(){
+                    count = $("#build_relic_list").find("input").length;
+                    $("#relic_count").text("Count: " + count.toString() + "/30");
+               }
+
+               function adjust_stats(){
+                    totals = {"msp": 0, "asp": 0, "str": 0, "sta": 0, "ene": 0, "arm": 0};
+                    $("#build_relic_list").find("input").each(function(){
+                         rid = $(this).attr("id");
+                         container = $(".relic_container_" + rid);
+                         stat_block = container.children(".relic_stats");
+                         for(key in totals){
+                              if(!isNaN(parseInt(stat_block.children("." + key).attr("value")))){
+                                   totals[key] += parseInt(stat_block.children("." + key).attr("value"));
+                              }
+                         }
+                    })
+                    // since we want "custom text" we're going to go ahead and do each update separately
+                    // definitely not efficient, but neither is the above loop. All told this whole thing isn't super efficient but its functional.
+                    // an okay starting point pre-optimization
+                    // Update Stat Divs
+                    $("#increased_msp").text(totals["msp"].toString() + " Movement Speed")
+                    $("#increased_asp").text(totals["asp"].toString() + "% Attack Speed")
+                    $("#increased_str").text(totals["str"].toString() + "% Strength")
+                    $("#increased_sta").text(totals["sta"].toString() + "% Stamina")
+                    $("#increased_ene").text(totals["ene"].toString() + "% Energy")
+                    $("#increased_arm").text(totals["arm"].toString() + "% Armor")
+               }
+
+               function remove_from_build(){
+                    // unhide container
+                    $("div[class='relic_container_" + $(this).parent().attr('class') + "']").css("display", "");
+                    // remove "input parent" from build area
+                    $(this).parent().remove();
+                    // adjust relic count
+                    adjust_relic_count();
+                    // run stat calculations
+                    adjust_stats();
+               }
+
+               // Because this is stand alone and "builds" can't be "saved", this function is useless
+               // However if someone wants to build a save/load function it will become useful again, so it stays for now
+               function hide_initial_relics(){
+                    $("#build_relic_list").find("input").each(function(){
+                         rid = $(this).attr("id");
+                         $("div[class='relic_container_" + rid + "']").css("display", "none");
+                    })
+               }
+
+               // load up functions
+               $("document").ready(function(){
+                    $("#description_filter").on("change", run_filters);
+                    $("#stat_filter").on("change", run_filters);
+                    $("button[class^='add_button']").on("click", add_to_build);
+                    $("button.remove").on("click", remove_from_build);
+                    // "fire" initial calculations
+                    adjust_relic_count();
+                    adjust_stats();
+                    hide_initial_relics(); // doing it the hard way...as per usual. Mostly for practice.
+               })
+          </script>
+     </body>
+</html>
