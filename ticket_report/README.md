@@ -36,3 +36,5 @@ Generate a report of "tickets" (dummy data in this public form).
 - The "Reporting Date Ranges" options and "Custom Date Ranges" update function will not change the data. These options were intended to query a server and pull in new data to update the various outputs on the page. Since the data is static for the purposes of this presentation, there is no change in the output when these options are used.
   - Yes, it would be possible to modify reports.js to accommodate the static data and expand said data, however the amount of work this would require exceeds the intended purpose of this project as well as deviates from the original intended functionality.
   - There is still error checking in the Custom Date Ranges option, for those that are interested in trying to break things.
+![Date Range To Large](https://github.com/btakahashi-90/webpages/blob/main/ticket_report/reademeImages/dateRangeTooLarge.png)
+![From Date After To Date](https://github.com/btakahashi-90/webpages/blob/main/ticket_report/reademeImages/fromAfterTo.png)
