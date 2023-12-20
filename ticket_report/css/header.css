@@ -1,0 +1,51 @@
+#header-container{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #3aafda;
+}
+#header{
+    width: 1400px;
+    max-width: 100vw;
+    margin: 0 auto;
+}
+#header-columns{
+    display: grid;
+    grid-template-columns: 200px auto 250px;
+    margin: 0 1rem;
+}
+#menu-wrapper{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+#logo{
+    margin: auto;
+}
+select{
+    background-color: white;
+    background-image: none;
+    color: #555555;
+    border: 1px solid #cccccc;
+    border-radius: 0.25rem;
+    max-width: 100%;
+    height: 2rem;
+}
+.nav.links{
+    width: 1400px;
+    max-width: 100vw;
+    margin: 0 1rem;
+}
+.nav.general{
+    /*display: flex;*/
+    justify-content: right;
+}
+.nav a{
+    text-align:center;
+    margin-left: 1rem;
+    color: white;
+}
+.search{
+    text-align: right;
+    margin-top: 1rem;
+}

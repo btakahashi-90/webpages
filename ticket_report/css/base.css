@@ -1,0 +1,27 @@
+.table_header{
+    text-decoration: underline;
+}        
+#content_container{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+#content_wrapper{
+    width: 1400px;
+    max-width: 100vw;
+    padding-top: 1rem;
+    margin: 0 auto;
+}
+.category_header{
+    text-align: center;
+}
+.ticket_details:nth-child(even){
+    background-color: #eeeeee
+}
+a{
+    text-decoration: underline;
+}
+.ticket_details > *{
+    word-wrap: break-word;
+    word-break: break-all;
+}

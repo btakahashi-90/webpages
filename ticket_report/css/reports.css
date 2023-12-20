@@ -1,0 +1,155 @@
+#content_area{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "info buttons"
+        "info ranges"
+        "data data";
+    grid-gap: 1rem;
+    margin: 0 1rem;
+}
+#info{
+    grid-area: info;
+}
+#buttons{
+    grid-area: buttons;
+    display: grid;
+    justify-content: end;
+    grid-template-columns: 1fr auto;
+    text-align: right;
+}
+#export_button_wrapper{
+    visibility: hidden;
+}
+#ranges{
+    grid-area: ranges;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 1rem;
+}
+#ranges > div{
+    border: 1px solid black;
+}
+#data{
+    grid-area: data;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.rhs{
+    grid-column: span 3;
+    max-width: 100%;
+}
+.categories_container{
+    grid-column: span 2;
+    margin-left: 1rem;
+}
+.title_box{
+    background-color: #1f6e8a;
+    color: white;
+    text-align: center;
+}
+
+.user_input{
+    padding-left: 1rem;
+}
+
+.category{
+    background-color: rgb(58, 175, 218, 0.2);
+    border-radius: 1.5rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.data_box{
+    border: 1px;
+    border-style: solid;
+    margin-bottom: 1rem;
+}
+
+.data_box .title_box{
+    text-align: left;
+    padding-left: 1rem;
+}
+
+.oldest_tickets .ticket_headers{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding-left: 1rem;
+    text-decoration: underline;
+}
+
+.oldest_tickets_data{
+    overflow-y: auto;
+    height: 200px;
+}
+
+.oldest_tickets_data .ticket_data_wrapper{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding-left: 1rem;
+}
+
+.ticket_data_wrapper:nth-child(odd){
+    background-color: #eeeeee
+}
+
+.total_chart_wrapper{
+    padding-top: 0.5rem;
+}
+
+.category_chart_wrapper{
+    padding-top: 0.5rem;
+}
+
+.employee_activity .headers{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    padding-left: 1rem;
+    text-decoration: underline;
+}
+
+.activity_wrapper .activity_data{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    padding-left: 1rem;
+}
+
+.range_options ul{
+    list-style: none;
+    text-decoration: underline;
+}
+.range_options ul li:hover{
+    cursor: pointer;
+}
+
+.neighborhood .tooltiptext{
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: relative;
+    z-index: 1;
+}
+.neighborhood:hover .tooltiptext{
+    visibility: visible;
+}
+
+@media print{
+    #header-container{
+        display: none;
+    }
+    #buttons{
+        display: none;
+    }
+    #ranges{
+        display: none;
+    }
+    #info{
+        display: none
+    }
+    #content_area{
+        display: block;
+    }
+}
