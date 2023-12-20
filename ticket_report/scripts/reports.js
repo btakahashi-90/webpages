@@ -2,8 +2,103 @@
 const totals_chart_ctx = $("#totals_chart");
 const categories_chart_ctx = $("#categories_chart");
 
+
 // set-up local storage
 window.Foo = {};
+
+window.Foo.STORAGE = {
+     "oldest_tickets": [
+          {
+               "id": 0,
+               "ticket_number": 1000,
+               "type_name": "Foo",
+               "age": 0,
+               "edit_date": randomDate(new Date(2022, 0, 1), new Date()),
+               "created_date": randomDate(new Date(2022, 0, 1), new Date())
+          },
+          {
+               "id": 1,
+               "ticket_number": 1001,
+               "type_name": "Foo",
+               "age": 0,
+               "edit_date": randomDate(new Date(2022, 0, 1), new Date()),
+               "created_date": randomDate(new Date(2022, 0, 1), new Date())
+          },
+          {
+               "id": 2,
+               "ticket_number": 1002,
+               "type_name": "Bar",
+               "age": 0,
+               "edit_date": randomDate(new Date(2022, 0, 1), new Date()),
+               "created_date": randomDate(new Date(2022, 0, 1), new Date())
+          },
+          {
+               "id": 3,
+               "ticket_number": 1003,
+               "type_name": "Foo",
+               "age": 0,
+               "edit_date": randomDate(new Date(2022, 0, 1), new Date()),
+               "created_date": randomDate(new Date(2022, 0, 1), new Date())
+          },
+          {
+               "id": 4,
+               "ticket_number": 1004,
+               "type_name": "Meh",
+               "age": 0,
+               "edit_date": randomDate(new Date(2022, 0, 1), new Date()),
+               "created_date": randomDate(new Date(2022, 0, 1), new Date())
+          }
+     ],
+	"categories": [
+		{
+			"name": "Foo",
+			"new_tickets": 10,
+			"active_tickets": [2, 4, 7, 5, 3, 0],
+			"completed_tickets": 7,
+			"overdue_tickets": 0,
+			"id": 1
+		},
+		{
+			"name": "Bar",
+			"new_tickets": 3,
+			"active_tickets": [0, 0, 1, 1, 3, 2],
+			"completed_tickets": 1,
+			"overdue_tickets": 0,
+			"id": 2
+		},
+		{
+			"name": "Meh",
+			"new_tickets": 5,
+			"active_tickets": [5, 8, 10, 9, 9, 7],
+			"completed_tickets": 5,
+			"overdue_tickets": 3,
+			"id": 3
+		},
+	],
+	"activity": [
+		{
+			"name": "Jane Doe",
+			"notes": 4,
+			"actions": 9,
+		},
+		{
+			"name": "Richard Roe",
+			"notes": 10,
+			"actions": 15,
+		},
+		{
+			"name": "John Q. Public",
+			"notes": 3,
+			"actions": 3,
+		},
+	],
+	"chart_labels": ["Jan 2023", "Feb 2023", "Mar 2023", "Apr 2023", "May 2023", "June 2023"]
+};
+
+// testing creating a random date for fun
+function randomDate(start, end){
+     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+}
 
 current_range = "";
 custom_from_qstring = "";
@@ -128,7 +223,8 @@ function update_lhs(){
                 <div class="count" style="float: right">\
                     ' + window.Foo.STORAGE["categories"][i]["overdue_tickets"] + '\
                 </div>\
-            </div>\
+            </div></div>'
+            /*
             <div class="external_link" style="text-align: center">\
                 <a target="_blank" href="' + window.Foo.STORAGE["categories"][i]["id"] + '/' + current_range + '/'
 
@@ -145,7 +241,7 @@ function update_lhs(){
                 </div>\
                 </div>'
             }
-
+            */
             container.append(category_html);
         }
     }
@@ -166,11 +262,15 @@ function update_rhs(){
     // fill oldest tickets in loop, append to container after each iteration
     for(i = 0; i < window.Foo.STORAGE["oldest_tickets"].length; i++){
         current_item = window.Foo.STORAGE["oldest_tickets"][i];
-        edit_date = new Date(current_item["edit_date"]);
-        created_date = new Date(current_item["created_date"]);
+        edit_date = current_item["edit_date"];
+        created_date = current_item["created_date"];
+        // Manually calculate age
+        timeDiff = Math.abs(new Date() - created_date);
+        current_item["age"] = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
         ticket_html = '<div class="ticket_data_wrapper">\
             <div class="">\
-            <a target="_blank" href="' + current_item["id"] + '/">' + current_item["ticket_number"] + '</a>\
+               ' + current_item["ticket_number"] + '\
             </div>\
             <div class="">\
                 ' + current_item["type_name"] + '\
@@ -214,24 +314,11 @@ function bind_li_date_ranges(){
         custom_range_button.off();
         data = {"range": this.dataset["range"], "type": "ajax"}
         current_range = data["range"];
-        /*return $.ajax("/tickets/reports/", {
-            type: 'GET',
-            dataType: 'json',
-            data: data,
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert("Ajax failed: " + textStatus);
-                return void 0;
-            },
-            success: function(data, textStatus, jqXHR) {
-              window.Foo.STORAGE = data;
-              update_charts();
-              update_lhs();
-              update_rhs();
-              bind_li_date_ranges();
-              bind_custom_range();
-              return void 0;
-            }
-       });*/
+        update_charts();
+        update_lhs();
+        update_rhs();
+        bind_li_date_ranges();
+        bind_custom_range();
     })
 }
 
@@ -265,24 +352,11 @@ function bind_custom_range(){
                     // okay the dates make sense...so let's ajax it
                     data = {"range": this.dataset["range"], "type": "ajax", "start": from, "end": to}
                     current_range = data["range"];
-                    /*return $.ajax("/reports/", {
-                        type: 'GET',
-                        dataType: 'json',
-                        data: data,
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            alert("Ajax failed: " + textStatus);
-                            return void 0;
-                        },
-                        success: function(data, textStatus, jqXHR) {
-                            window.Foo.STORAGE = data;
-                            update_charts();
-                            update_lhs();
-                            update_rhs();
-                            bind_li_date_ranges();
-                            bind_custom_range();
-                            return void 0;
-                        }
-                   })*/
+                    update_charts();
+                    update_lhs();
+                    update_rhs();
+                    bind_li_date_ranges();
+                    bind_custom_range();
                 }
                 else{
                     alert('Range too large: Please ensure the dates are less than 10 years apart.')
@@ -327,8 +401,8 @@ function bind_custom_range(){
 }
 
 function bind_print(){
-    $("#print_button").off();
-    $("#print_button").on("click", function(){
+    $("#print_button_wrapper").off();
+    $("#print_button_wrapper").on("click", function(){
         window.print();
     })
 }
@@ -336,31 +410,18 @@ function bind_print(){
 $("document").ready( function(){
     data = {"range": "ytd", "type": "ajax"};
     current_range = data["range"];
-    /*return $.ajax("/reports/", {
-        type: 'GET',
-        dataType: 'json',
-        data: data,
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert("Ajax failed: " + textStatus);
-            return void 0;
-        },
-        success: function(data, textStatus, jqXHR) {
-          window.Foo.STORAGE = data;
-          update_charts();
-          update_lhs();
-          update_rhs();
-          bind_li_date_ranges();
-          bind_custom_range();
-          bind_print();
-          // setup datepickers
-          $("#from_input").datepicker();
-          $("#to_input").datepicker();
-          // clear inputs on success
-          $("#from_input").val('');
-          $("#to_input").val('');
-          return void 0;
-        }
-   });*/
+    update_charts();
+    update_lhs();
+    update_rhs();
+    bind_li_date_ranges();
+    bind_custom_range();
+    bind_print();
+    // setup datepickers
+    $("#from_input").datepicker();
+    $("#to_input").datepicker();
+    // clear inputs on success
+    $("#from_input").val('');
+    $("#to_input").val('');
 })
 
 /* Initialize Empty Charts */
@@ -416,59 +477,3 @@ const categories_chart = new Chart(categories_chart_ctx, {
         maintainAspectRatio: false,
     }
 });
-
-
-/*
-What we need for each "area" - all based on timeframe, default 1 year (YTD)
-**************LHS**************
-Categories - Category Name, New Tickets, Total Active, Completed, Overdue, ID (probably, fine to send it in)
-**************RHS**************
-Oldest 50 - Ticket # (not ID), Category Name, Last Edit Date, Created Date, Age, Neighborhood
-Total Tickets Received - spanned Months (labels), Summed totals for all categories for each month
-Tickets by Category - spanned Months (labels), Category Name, Active tickets per Category (for now, might be completed or something else)
-Activity - Employee Name, # Notes created by Employee, # Actions done by employee
-
-**************Common Data**************
-Category Names, totals (any should be obtainable from LHS Categories with proper logic)
-
-**************JSON v0.1**************
-{
-    "categories": [
-        {
-            "name": "string",
-            "new_tickets": int,
-            "active_tickets": [int_month_1, int_month_2, ..., int_month_n], <-- to be summed before display, used in "Tickets by Cat"
-            "completed_tickets": int,
-            "overdue_tickets": int,
-            "id": int
-        },
-        {
-            ...
-        }
-    ],
-    "oldest_tickets": [
-        {
-            "ticket_number": int,
-            "category_name": "string",
-            "edit_date": "string", <-- maybe?
-            "created_date": "string", <-- maybe?
-            "age": int,
-            "neighborhood": "string"
-        },
-        {
-            ...
-        }
-    ],
-    "activity": [
-        {
-            "name": "string",
-            "notes_created": int, <-- edited included?
-            "actions": int
-        },
-        {
-            ...
-        }
-    ],
-    "chart_labels": ["month_1-yr", "month_2-yr", ..., "month_n-yr"]
-}
-*/
