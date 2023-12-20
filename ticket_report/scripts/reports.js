@@ -130,7 +130,7 @@ function update_lhs(){
                 </div>\
             </div>\
             <div class="external_link" style="text-align: center">\
-                <a target="_blank" href="/311/staff_tickets/category/' + window.Foo.STORAGE["categories"][i]["id"] + '/' + current_range + '/'
+                <a target="_blank" href="' + window.Foo.STORAGE["categories"][i]["id"] + '/' + current_range + '/'
 
             // add query strings if necessary
             if(current_range === "custom"){
@@ -170,7 +170,7 @@ function update_rhs(){
         created_date = new Date(current_item["created_date"]);
         ticket_html = '<div class="ticket_data_wrapper">\
             <div class="">\
-            <a target="_blank" href="/311/staff_tickets/ticket_detail/' + current_item["id"] + '/">' + current_item["ticket_number"] + '</a>\
+            <a target="_blank" href="' + current_item["id"] + '/">' + current_item["ticket_number"] + '</a>\
             </div>\
             <div class="">\
                 ' + current_item["type_name"] + '\
@@ -181,9 +181,6 @@ function update_rhs(){
             <div class="">\
                 ' + (created_date.getMonth() + 1) + '/' + created_date.getDate() + '/' + created_date.getFullYear()  + ' (' + current_item["age"] + ' days)\
             </div>\
-            <div class="">\
-                ' + current_item["neighborhood"] + '\
-            </div>\
         </div>'
 
         oldest_container.append(ticket_html);
@@ -191,8 +188,8 @@ function update_rhs(){
 
 
     // fill employee activity in a loop, append to activity container after each iteration
-    for(i = 0; i < window.Foo.STORAGE["staff_activity"].length; i++){
-        current_item = window.Foo.STORAGE["staff_activity"][i];
+    for(i = 0; i < window.Foo.STORAGE["activity"].length; i++){
+        current_item = window.Foo.STORAGE["activity"][i];
         activity_html = '<div class="activity_data"> \
             <div class="">\
                 ' + current_item["name"] + '\
@@ -217,7 +214,7 @@ function bind_li_date_ranges(){
         custom_range_button.off();
         data = {"range": this.dataset["range"], "type": "ajax"}
         current_range = data["range"];
-        /*return $.ajax("/311/staff_tickets/reports/", {
+        /*return $.ajax("/tickets/reports/", {
             type: 'GET',
             dataType: 'json',
             data: data,
@@ -268,7 +265,7 @@ function bind_custom_range(){
                     // okay the dates make sense...so let's ajax it
                     data = {"range": this.dataset["range"], "type": "ajax", "start": from, "end": to}
                     current_range = data["range"];
-                    /*return $.ajax("/311/staff_tickets/reports/", {
+                    /*return $.ajax("/reports/", {
                         type: 'GET',
                         dataType: 'json',
                         data: data,
@@ -339,7 +336,7 @@ function bind_print(){
 $("document").ready( function(){
     data = {"range": "ytd", "type": "ajax"};
     current_range = data["range"];
-    /*return $.ajax("/311/staff_tickets/reports/", {
+    /*return $.ajax("/reports/", {
         type: 'GET',
         dataType: 'json',
         data: data,
@@ -462,7 +459,7 @@ Category Names, totals (any should be obtainable from LHS Categories with proper
             ...
         }
     ],
-    "staff_activity": [
+    "activity": [
         {
             "name": "string",
             "notes_created": int, <-- edited included?
